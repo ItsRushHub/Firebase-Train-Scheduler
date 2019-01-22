@@ -13,13 +13,34 @@ $(document).ready(function(){
   
     var database = firebase.database();
 
+    console.log(database);
 
+// Make the submit button work for the submitted form info.
     $("#submit").on("click", function(e){
         e.preventDefault();
 
-        
+        var trainName = $("#trainName").val();
+        var destination = $("#destination").val();
+        var trainTime = $("#trainTime").val();
+        var frequency = $("#frequency").val();
 
+        var newTrainSchedule = {
+            train: trainName,
+            destination: destination,
+            nextArrival: trainTime,
+            minutesAway: frequency
+        }
+
+        database.ref().push(newTrainSchedule);
+
+        $("#trainName").val("");
+        $("#destination").val("");
+        $("#trainTime").val("");
+        $("#frequency").val("");
     });
+
+
+
 
 
 
