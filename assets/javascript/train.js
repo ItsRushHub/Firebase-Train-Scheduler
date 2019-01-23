@@ -39,6 +39,24 @@ $(document).ready(function(){
         $("#frequency").val("");
     });
 
+        database.ref().on("child_added", function(childsnapshot){
+            var trainName = childsnapshot.val().train;
+            var destination = childsnapshot.val().destination;
+            var trainTime = childsnapshot.val().nextArrival;
+            var frequency = childsnapshot.val().minutesAway;
+
+
+        
+            $("tbody").append(
+                `<tr> 
+                    <td>${trainName}</td>
+                    <td>${destination}</td>
+                    <td>${trainTime}</td>
+                    <td>${frequency}</td>
+                </tr>`)
+
+                console.log(tbody);
+        });
 
 
 
