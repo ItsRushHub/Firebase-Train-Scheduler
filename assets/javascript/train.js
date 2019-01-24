@@ -1,3 +1,5 @@
+var database = firebase.database();
+
 $(document).ready(function(e){
     // Initialize Firebase
     var config = {
@@ -7,11 +9,10 @@ $(document).ready(function(e){
         projectId: "fir-train-scheduler-c2bb0",
         storageBucket: "fir-train-scheduler-c2bb0.appspot.com",
         messagingSenderId: "666379577815"
+        
     };
 
     firebase.initializeApp(config);
-  
-    var database = firebase.database();
 
 
 // Make the submit button work for the submitted form info.
@@ -56,9 +57,9 @@ $(document).ready(function(e){
                 console.log(trainTime)
                 console.log(frequency)
 
-                var tRemainder = moment().diff(moment.unix(parseInt(firstTrain)), "minutes") % frequency;
-                var tMinutes = frequency - tRemainder;
-                var nextArrival = moment().add(tMinutes, "m").format("hh:mm A");
+                var trainName = moment().diff(moment.unix(parseInt(firstTrain)), "minutes") % frequency;
+                var minutesAway = frequency - trainName;
+                var nextArrival = moment().add(minutesAway, "m").format("hh:mm A");
 
 
 
@@ -66,18 +67,15 @@ $(document).ready(function(e){
                 $("<td>").text(trainName),
                 $("<td>").text(destination),
                 $("<td>").text(frequency),
-                $("<td>").text(tRemainder),
                 $("<td>").text(nextArrival),
-                $("<td>").text(tMinutes),
+                $("<td>").text(minutesAway),
+                
 
                 $("<td>").append('<i class="fa fa-trash" aria-hidden="true"></i>') 
             );
             
-            $("#tbody").append(newRow);
+            $("tbody").append(newRow);
 
             // console.log(newRow);
-
-            
-
         });
 });
