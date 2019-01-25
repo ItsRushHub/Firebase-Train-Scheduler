@@ -17,58 +17,49 @@ $(document).ready(function(e){
     $("#submit").on("click", function(e){
         e.preventDefault();
 
-        var trainName = $("#trainName").val().trim;
-        var tdestination = $("#destination").val();
-        var trainTime = moment($("#trainTime").val(), "HH:mm").subtract(10, "years").format("X");
-        var tfrequency = $("#frequency").val();
-
-        console.log(trainName);
-        console.log(tdestination);
-        console.log(trainTime);
-        console.log(tfrequency);
-        
+        var trainName = $("#trainName").val();
+        var thedestination = $("#tdestination").val();
+        var firstTrain = moment($("#firstTrainTime").val(), "HH:mm").subtract(10, "years").format("X");
+        var thefrequency = $("#frequencyData").val();
+    
 
         var newTrainSchedule = {
             train: trainName,
-            destination: tdestination,
-            firstTrainTime: trainTime,
-            frequencyData: tfrequency,
+            destination: thedestination,
+            firstTrainTime: firstTrain,
+            frequencyData: thefrequency,
         };
 
         database.ref().push(newTrainSchedule);
 
         $("#trainName").val("");
         $("#destination").val("");
-        $("#trainTime").val("");
-        $("#frequency").val("");
+        $("#firstTrainTime").val("");
+        $("#frequencyData").val("");
     });
 
         database.ref().on("child_added", function (childsnapshot) {
             
             var trainName = childsnapshot.val().train;
-            var tdestination = childsnapshot.val().destination;
-            var trainTime = childsnapshot.val().firstTrainTimeData;
-            var tfrequency = childsnapshot.val().frequencyData;
-            var theTimeInput = childsnapshot.val().firstTrainTimeData;
+            var theDestination = childsnapshot.val().destination;
+            var firstTrain = childsnapshot.val().firstTrainData;
+            var thefrequency = childsnapshot.val().frequencyData;
+            var theTimeInput = childsnapshot.val().firstTrainData;
 
                 console.log('trainName from firebase', trainName);
-                console.log(tdestination);
-                console.log(trainTime);
-                console.log(tfrequency);
-                console.log(theTimeInput);
 
-                var remainderTime = moment().diff(moment.unix(parseInt(trainTime)), "minutes") % tfrequency;
-                var trainMinutes = tfrequency - remainderTime;
-                var trainArrival = moment().add(trainMinutes, "m").format("hh:mm A");
+                var theRemainder = moment().diff(moment.unix(parseInt(firstTrain)), "minutes") % frequencyData;
+                var theMinutes = frequencyData - theRemainder;
+                var theArrival = moment().add(theMinutes, "m").format("hh:mm A");
 
 
-
+// New submitted info. own its new row
             var newRow = $("<tr>").append(
                 $("<td>").text(trainName),
-                $("<td>").text(tdestination),
-                $("<td>").text(tfrequency),
-                $("<td>").text(trainArrival),
-                $("<td>").text(trainMinutes),
+                $("<td>").text(theDestination),
+                $("<td>").text(thefrequency),
+                $("<td>").text(theArrival),
+                $("<td>").text(theMinutes),
                 $("<td>").append('<i class="fa fa-trash" aria-hidden="true"></i>') 
             );
             
