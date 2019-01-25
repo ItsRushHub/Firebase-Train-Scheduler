@@ -1,3 +1,8 @@
-.card-body {
-    background-color: white;
+label {
+    color: white;    
+}
+
+
+.jumbotron {
+    background-color: #234040;
 }
