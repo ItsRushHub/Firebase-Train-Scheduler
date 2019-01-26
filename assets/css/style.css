@@ -27,3 +27,23 @@ input {
 .card-header {
     color: white;
 }
+
+
+td {
+    background-color: white;
+    opacity: 0.75;
+    color: #652e31;
+    font-weight: bolder;
+}
+
+#submit {
+    background-color: #234040;
+    color: #b2925f;
+    outline-width: 4px;
+    outline-color: #b2925f;
+    box-shadow: 2px 5px 20px grey;
+}
+
+#submit:hover {
+    background-color: #652e31;
+}
